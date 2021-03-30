@@ -1,0 +1,187 @@
+LAMP, POSTGRES y Host Virtuales con y sin SSL EN Manjaro/Arch
+===== ======== = ==== ========= === = === === == ============
+ 
+Iniciamos una terminal con privilegios de superusuario
+$ sudo bash
+
+Actualizamos la base de datos de los paquetes
+# pacman -Syu
+
+Apache
+======
+Instalamos apache y ejecutamos lo siguiente
+# pacman -S apache
+
+Habilitamos dos módulos necesarios editando el archivo /etc/httpd/conf/httpd.conf
+Para las urls amigables habilitar
+LoadModule rewrite_module modules/mod_rewrite.so
+
+Para el ssl habilitar
+LoadModule ssl_module modules/mod_ssl.so
+
+En el mismo archivo cambiaremos el usuario con el que trabajaremos en el servidor apache
+User villegas
+Group villegas
+
+Posibilitaremos los htaccess habilitando la opción AllowOverride de la directiva Directory /srv/http
+<Directory "/srv/http">
+  AllowOverride All
+
+Guardamos los cambios, y cambiamos los permisos del directorio /srv/http
+# chown -R villegas:villegas /srv/http
+
+Reiniciamos el servicio httpd
+# systemctl restart httpd
+
+Para iniciar apache en el arranque del servidor poner
+# systemctl enable httpd
+
+PHP
+===
+Instalamos el PHP
+# pacman -S php php-apache 
+
+Ahora habilitamos PHP
+# nano /etc/httpd/conf/httpd.conf
+
+Comentamos o remplazamos la linea
+LoadModule mpm_event_module modules/mod_mpm_event.so 
+con la siguiente:
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+
+Posteriormente, al final del mismo archivo, agregamos el siguiente bloque si usas php5 ó si tienes php7:
+# Para PHP 5.x:
+LoadModule php5_module modules/libphp5.so
+AddHandler php5-script php
+Include conf/extra/php5_module.conf
+
+# Para PHP 7.x:
+LoadModule php7_module modules/libphp7.so
+AddHandler php7-script php
+Include conf/extra/php7_module.conf
+
+Para cargar los archivos index.php, agregar las siguientes líneas al final del mismo archivo
+<IfModule dir_module>
+  <IfModule php7_module>
+    DirectoryIndex index.php index.html
+    <FilesMatch "\.php$">
+      SetHandler application/x-httpd-php
+    </FilesMatch>
+    <FilesMatch "\.phps$">
+      SetHandler application/x-httpd-php-source
+    </FilesMatch>
+  </IfModule>
+</IfModule>
+
+
+MYSQL
+=====
+Instalamos el gestor de base de datos
+# pacman -S mariadb   ó   # pacman -S mysql 
+
+Inicializamos mysql
+#mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+Levantamos el servicio mysqld
+# systemctl start mysqld.service
+
+Ejecutamos la instalación de MariaDb, ahí podremos establecer la contraseña del superusuario de mysql
+# mysql_secure_installation
+
+Si se desea que mysql inicie automáticamente con el servidor, ejecutar:
+# systemctl enable mysqld
+
+Habilitar la extensión desde /etc/php/php.ini con
+extension=mysqli
+
+Reiniciar apache
+
+
+POSTGRES
+========
+Instalamos postgres con
+# pacman -S postgresql
+
+Inicializamos postgres con
+# su postgres -l
+$ initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
+$ exit
+
+Levantamos el servicio postgres
+# systemctl start postgresql
+
+Si se desea que postgres se inicie automáticamente con el servidor, ejecutar:
+# systemctl enable postgresql
+
+Actualizamos la contraseña del usuario postgres
+# su - postgres -c "psql"
+> alter user postgres with password ‘qwerty’;
+> \q
+
+Utilizar el método md5 para la autenticación de postgres
+# vim /var/lib/pgsql/10/data/pg_hba.conf
+En ese archivo pondremos md5 todos los métodos de autenticación y guardaremos los cambios.
+
+Instalamos la extensión de php para utilizar postgres
+# pacman -Ss php-pgsql
+
+Habilitar la extensión desde /etc/php/php.ini con
+extension=pgsql
+
+Reiniciar apache
+
+
+
+HOST VIRTUALES
+==============
+En el archivo de configuración de apache /etc/httpd/conf/httpd.conf
+Habilitaremos la línea 
+Include conf/extra/httpd-vhosts.conf
+
+En el archivo httpd-vhosts.conf, la estructura de los hosts virtuales es la siguiente:
+<VirtualHost 127.0.0.2:80>
+        ServerAdmin fvillegas@acedevel.com
+        DocumentRoot "/srv/http/sitio"
+        ServerName local.sitio.com
+        ErrorLog "/srv/http/sitio/logs/error_log"
+        CustomLog "/srv/http/sitio/logs/access_log" common
+
+        <Directory /srv/http/sitio>
+               Options Indexes FollowSymLinks
+               AllowOverride FileInfo All
+               Require all granted
+       </Directory>
+</VirtualHost>
+
+Las rutas deben existir y ser correctas
+Reiniciar apache
+
+
+SSL LOCAL EN VIRTUAL HOST
+=== ===== == ======= ====
+Ingresar a un directorio donde estarán los certificados por ejemplo /etc/httpd/ssl y generar los certificados
+# openssl genrsa -aes256 -out sitio.key 2048
+# openssl rsa -in sitio.key -out sitio.key
+# openssl req -new -x509 -nodes -sha1 -key sitio.key -out sitio.crt -days 36500
+
+Para la configuración del host virutal utilizar la siguiente estructura:
+Listen 443
+<VirtualHost 127.0.0.2:443>
+        DocumentRoot "/srv/http/sitio"
+        ServerName local.sitio.com
+        ErrorLog "/srv/http/sitio/logs/error_log"
+        CustomLog "/srv/http/sitio/logs/access_log" common
+
+        SSLEngine on
+        SSLCertificateFile /etc/httpd/ssl/sitio.crt
+        SSLCertificateKeyFile /etc/httpd/ssl/sitio.key
+        <Directory /srv/http/sitio>
+                SSLOptions +StdEnvVars
+                Options Indexes FollowSymLinks
+                AllowOverride All
+                Require all granted
+        </Directory>
+</VirtualHost>
+
+Las rutas deben existir y ser correctas
+Reiniciar apache

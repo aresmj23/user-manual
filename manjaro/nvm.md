@@ -19,6 +19,11 @@ Instalar la version v12.21.0
 $ nvm install v12.21.0
 ```
 
+Eliminar la version v12.21.0
+```bash
+$ nvm uninstall v12.21.0
+```
+
 Usar la version v14.16.0 
 ```bash
 $ nvm use v14.16.0 

@@ -158,6 +158,19 @@ Restaurar servicio httpd
 $ sudo systemctl restart httpd
 ```
 
+### Si quieres instalar php7
+
+Sale un error de php7 que no se encuentra el archivo php
+
+```bash
+$ bash: /usr/bin/php: No existe el fichero o el directorio
+```
+
+Hacer un enlace simbolico para que reconozca php
+```bash
+$ sudo ln -s /usr/bin/php7 /usr/bin/php
+```
+
 ## Instalar phpmyadmin
 ```bash
 $ sudo pacman -S phpmyadmin
