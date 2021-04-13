@@ -8,7 +8,6 @@ $ sudo pacman -Syu
 $ sudo pacman -S docker
 ```
 
-
 ```bash
 $ sudo systemctl start docker.service
 $ sudo systemctl enable docker.service
@@ -18,7 +17,8 @@ $ sudo systemctl enable docker.service
 $ sudo docker version
 ```
 
-## Ejecute Docker sin root 
+## Ejecute Docker sin root
+
 ```bash
 $ sudo usermod -aG docker $USER
 ```
@@ -27,37 +27,44 @@ $ sudo usermod -aG docker $USER
 $ reboot
 ```
 
-## Buscando una imagen de Docker 
+## Buscando una imagen de Docker
+
 ```bash
 $ docker search [name]
 ```
 
 Buscar nginx servidor web
+
 ```bash
 $ docker search nginx
 ```
 
-## Iniciar docker 
+## Iniciar docker
+
 ```bash
 $ docker run hello-world
 ```
 
 Para ver qué contenedores de Docker se están ejecutando y verificar su estado actual.
+
 ```bash
 $ docker container ls
 ```
 
 Para ver una lista de todas las imágenes de Docker instaladas.
+
 ```bash
 $ docker images
 ```
 
 Para ver el uso actual de CPU, RAM y red de las imágenes en ejecución
+
 ```bash
 $ docker stats
 ```
 
 Para ver la configuración de red de Docker
+
 ```bash
 $ docker network ls
 ```
@@ -65,19 +72,23 @@ $ docker network ls
 ```bash
 $ 
 ```
+
 ## Instalar docker-compose
 
 Instalar
+
 ```bash
 $ sudo pacman -S docker-compose 
 ```
 
 Ver la version
+
 ```bash
 $ docker-compose --version
 ```
 
 Eliminar
+
 ```bash
 $ sudo pacman -R docker-compose
 ```

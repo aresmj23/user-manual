@@ -1,5 +1,3 @@
 # handbook
 
-Terminal Tilix error
-
-https://gnunn1.github.io/tilix-web/manual/vteconfig/
+Manual de usuario para la instalacion de diferentes herramienstas de desarrollo
