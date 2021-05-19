@@ -75,7 +75,7 @@ $ sudo pacman -S neofetch
 $ neofetch
 ```
 
-Cambiar la hora en manjaro
+## Cambiar la hora en manjaro
 
 ```bash
 $ sudo pacman -S ntp
