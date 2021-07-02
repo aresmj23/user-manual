@@ -89,3 +89,30 @@ $ sudo su
 # ntpd -qg
 # hwclock -w
 ```
+
+## Fonts de windows en manjaro
+
+are - where they always were - in AUR.
+
+First you should update:
+
+```bash
+$ sudo pamac upgrade -a
+```
+
+The fonts can be installed via
+
+```bash
+$ sudo pamac build ttf-ms-fonts 
+```
+or
+
+```bash
+$ sudo pamac build ttf-ms-win10
+```
+
+They are conflicting, so you have to decide.
+
+As mentioned by @cscs, check carefully if it’s legal for you to use the win10 fonts.
+
+

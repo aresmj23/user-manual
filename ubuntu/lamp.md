@@ -49,3 +49,8 @@ GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 exit
 ```
+
+
+## Cómo crear Virtual Hosts con Apache para Linux y Mac
+
+https://styde.net/como-crear-virtual-hosts-con-apache-para-linux-y-mac/

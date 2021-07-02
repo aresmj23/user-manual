@@ -29,3 +29,19 @@ Ver la version de java
 ```bash
 $ java -version
 ```
+
+Estado version de java
+
+```bash
+$ archlinux-java status
+```
+
+Ver la version de java
+
+```bash
+$ sudo archlinux-java set java-8-openjdk
+```
+
+```bash
+$ sudo archlinux-java set java-11-openjdk
+```

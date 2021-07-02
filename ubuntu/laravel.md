@@ -5,6 +5,7 @@ Permisos de laravel en tu proyecto
 ```bash
 $ sudo chown -R $USER:www-data storage
 $ chmod -R 775 storage/ bootstrap/cache/
+$ sudo chmod -R o=rwx storage
 ```
 
 
