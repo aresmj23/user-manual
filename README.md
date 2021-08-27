@@ -1,3 +1,3 @@
 # handbook
 
-Manual de usuario para la instalacion de diferentes herramienstas de desarrollo
+Manual de usuario para la instalacion

@@ -10,12 +10,14 @@
 
 ```bash
 $ sudo a2enmod rewrite
-$ sudo service apache2 restart
+$ sudo systemctl restart apache2
 ```
 
 ```bash
 $ sudo nano /etc/apache2/apache2.conf
 ```
+
+Cambiar none por All
 
 ```bash
 <Directory />
@@ -33,7 +35,7 @@ $ sudo nano /etc/apache2/apache2.conf
 
 
 ```bash
-$ sudo service apache2 restart
+$ sudo systemctl restart apache2
 ```
 
 ## Crear un usuario de mysql y tambien insertar contraseña 
