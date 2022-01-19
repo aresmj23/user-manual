@@ -13,6 +13,7 @@ $ sudo snap install core
 $ sudo snap install insomnia
 $ sudo snap install spotify
 $ sudo snap install zoom-client
+$ sudo snap install shutter
 ```
 
 # Brave
