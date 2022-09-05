@@ -10,7 +10,7 @@ $ sudo chmod -R o=rwx storage
 
 Comandos basicos
 
-```bashnpm run dev
+```bash
 $ php artisan key:generate
 $ composer install
 $ composer dump-autoload
