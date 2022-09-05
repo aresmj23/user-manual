@@ -90,6 +90,12 @@ sudo a2dismod php7.2
 sudo systemctl restart apache2
 ```
 
+Deshabilitar
+```bash
+sudo a2dismod php7.4
+sudo systemctl restart apache2
+```
+
 Habilitar
 ```bash
 sudo a2enmod php7.4

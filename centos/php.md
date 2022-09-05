@@ -47,3 +47,15 @@ sudo yum -y install php php-{cli,fpm,mysqlnd,zip,devel,gd,mbstring,curl,xml,pear
 php --version
 php -v
 ```
+
+
+
+php -v
+rpm -qa | grep php
+yum remove "php-*" -y
+yum --disablerepo=remi-php72 --enablerepo=remi-php73 install php php-gd php-mbstring php-mysql php-curl php-mcrypt
+rpm -qa | grep php
+yum remove "php-*" -y
+yum --disablerepo=remi-php73 --enablerepo=remi-php56 install php php-gd php-mbstring php-mysql php-curl php-mcrypt
+php -v
+
