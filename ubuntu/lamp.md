@@ -48,6 +48,10 @@ sudo systemctl stop mysql.service
 sudo systemctl enable mysql.service
 sudo systemctl disable mysql.service
 
+Conectar mysql
+
+mysql -h localhost -u root -p
+
 
 ## Instalar Php
 
@@ -64,36 +68,42 @@ sudo apt install php php-{fpm,mbstring,bcmath,xml,mysql,common,gd,cli,curl,zip}
 sudo systemctl enable php8.1-fpm --now
 
 
+echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
+
+
 ## Instalar PhpMyAdmin
 
 
 
-sudo nano /etc/apache2/conf-available/phpmyadmin.conf
 
-Antes
+## URL AMIGABLES
 
 ```bash
-# phpMyAdmin default Apache configuration
+$ sudo a2enmod rewrite
+$ sudo systemctl restart apache2
+```
 
-Alias /phpmyadmin /usr/share/phpmyadmin
+```bash
+$ sudo nano /etc/apache2/apache2.conf
+```
 
-<Directory /usr/share/phpmyadmin>
-    Options SymLinksIfOwnerMatch
-    DirectoryIndex index.php
+Cambiar none por All
 
-    # limit libapache2-mod-php to files and directories necessary by pma
-    <IfModule mod_php7.c>
-        php_admin_value upload_tmp_dir /var/lib/phpmyadmin/tmp
-        php_admin_value open_basedir /usr/share/phpmyadmin/:/usr/share/doc/phpmyadmin/:/etc/phpmyadmin/:/var/lib/phpmyadmin/:/usr/share/php/:/usr/share/javascript/
-    </IfModule>
-
+```bash
+<Directory />
+	Options FollowSymLinks
+	AllowOverride All 
+	Require all denied
 </Directory>
+ 
+<Directory /var/www/>
+	Options Indexes FollowSymLinks
+	AllowOverride All
+	Require all granted
+</Directory>
+```
 
-# Disallow web access to directories that don't need it
-<Directory /usr/share/phpmyadmin/templates>
-    Require all denied
-</Directory>
-<Directory /usr/share/phpmyadmin/libraries>
-    Require all denied
-</Directory>
+
+```bash
+$ sudo systemctl restart apache2
 ```

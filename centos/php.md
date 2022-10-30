@@ -7,12 +7,9 @@ sudo yum update -y
 ```
 
 
-
 ```bash
 sudo yum -y install yum-utils https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-
 ```
-
 
 
 ```bash
@@ -20,11 +17,9 @@ sudo yum update -y
 ```
 
 
-
 ```bash
 sudo yum-config-manager --disable 'remi-php*'
 ```
-
 
 
 ```bash
@@ -37,17 +32,15 @@ sudo yum repolist
 ```
 
 
-
 ```bash
 sudo yum -y install php php-{cli,fpm,mysqlnd,zip,devel,gd,mbstring,curl,xml,pear,bcmath,json,opcache,redis,memcache}
-
 ```
+
 
 ```bash
 php --version
 php -v
 ```
-
 
 
 php -v
