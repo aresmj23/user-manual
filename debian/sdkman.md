@@ -73,5 +73,5 @@ $ sdk flush temp
 ## Desintalar SDKMAN
 
 ```bash
-rm -rf /home/gnujavasergio/.sdkman/
+rm -rf /home/amartinez/.sdkman/
 ```
