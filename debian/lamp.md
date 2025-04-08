@@ -60,8 +60,13 @@ sudo update-alternatives --set php /usr/bin/php8.0
 
 ### Install php 8.0
 
-sudo apt install -y php8.0 php8.0-cli php8.0-fpm php8.0-mysql php8.0-zip php8.0-gd php8.0-mbstring php8.0-curl php8.0-xml php8.0-bcmath
+sudo apt install -y php8.0 libapache2-mod-php php8.0-cli php8.0-fpm php8.0-mysql php8.0-zip php8.0-gd php8.0-mbstring php8.0-curl php8.0-xml php8.0-bcmath
 
+php -v
+
+### Install php 8.2
+
+sudo apt install -y php8.2 libapache2-mod-php php8.2-cli php8.2-fpm php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath
 
 php -v
 
@@ -93,6 +98,19 @@ Descomentar la linea
 extension=pdo_mysql
 
 sudo systemctl restart apache2
+
+## Configuraciones de PHP
+
+```bash
+sudo nano /etc/php/8.0/apache2/php.ini
+
+post_max_size = 25M
+upload_max_filesize = 25M
+max_input_vars = 5000
+memory_limit = 256M
+
+sudo systemctl restart apache2
+```
 
 ## URL AMIGABLES
 
@@ -144,3 +162,35 @@ exit
 ## Cómo crear Virtual Hosts con Apache para Linux y Mac
 
 https://styde.net/como-crear-virtual-hosts-con-apache-para-linux-y-mac/
+
+
+## Error 
+
+```
+Currently installed version is: ' . PHP_VERSION . '
+'); } // phpcs:disable PSR1.Files.SideEffects 
+```
+
+https://think.unblog.ch/en/phpmyadmin-error-php-7-2-5-is-required/
+
+
+sudo apt install php8.2 php8.2-{cli,mysql,imap,intl,apcu,cgi,bz2,zip,mbstring,gd,curl,xml,common,opcache,imagick} -y
+
+
+sudo apt install libapache2-mod-php libapache2-mod-php8.2 -y
+
+
+sudo a2enmod php8.2
+
+
+apt list libapache2-mod-php*
+
+
+apt info libapache2-mod-php*
+
+Deshabilitar 
+sudo a2dismod php7.2
+
+
+sudo a2query -m | grep php
+

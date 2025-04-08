@@ -1,9 +1,8 @@
 # Manual de usuario de react
 
-## Instalar react y crear un nuevo proyecto
-
-
 npm install -g create-react-app
+
+## Instalar react y crear un nuevo proyecto
 
 npx create-react-app base-react
 

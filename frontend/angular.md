@@ -1,8 +1,8 @@
 # Manual de usuario de angular
 
-## Instalar angular y crear un nuevo proyecto
-
 npm install -g @angular/cli
+
+## Instalar angular y crear un nuevo proyecto
 
 ng new base-angular
 

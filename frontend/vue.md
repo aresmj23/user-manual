@@ -3,9 +3,8 @@
 ## Instalar vue y crear un nuevo proyecto
 
 ### Opción 1
-npm create vue@latest
 
-vue create base-vue
+npm create vue@latest
 
 Despues eligies opciones con que trabajar
 
@@ -13,11 +12,12 @@ cd base-vue
 
 npm install
 
+npm run format
+
 npm run dev
 
-npm run build
-
 ### Opción 2
+
 npm install -g @vue/cli
 
 vue create base-vue
@@ -29,6 +29,7 @@ npm run serve
 npm run build
 
 ### Opción 3
+
 npm install npm@latest -g
 
 npm init vue@latest
@@ -47,9 +48,22 @@ npm run build
 npm install bootstrap --save
 ```
 
-Agregar las lineas en src/main.js
+Agregar las lineas en src/main.ts
 
-```js
-import "bootstrap/dist/css/bootstrap.min.css";
+```ts
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+```
+
+## Instalar axios
+
+```bash
+npm install axios --save
+```
+
+Agregar axios en el componentes que se va a utilizar
+
+```vue
+import axios from 'axios'
 ```
 
